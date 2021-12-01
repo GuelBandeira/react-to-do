@@ -10,8 +10,10 @@ const AddTask = ({ adicionarTask }) => {
   };
 
   const handleInputChange = () => {
-    adicionarTask(inputData);
-    setInputData("");
+    if (inputData !== "") {
+      adicionarTask(inputData);
+      setInputData("");
+    }
   };
 
   return (

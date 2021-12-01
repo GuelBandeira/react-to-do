@@ -1,6 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 //Componentes
 import Tasks from "./components/Tasks";
@@ -9,6 +10,7 @@ import Header from "./components/Header";
 
 //Estilos
 import "./App.css";
+import TaskDetails from "./components/TaskDetails";
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -34,7 +36,7 @@ function App() {
   };
 
   const deletarTask = (taskId) => {
-    const novaTarefa = tasks.filter((task) => task.id != taskId);
+    const novaTarefa = tasks.filter((task) => task.id !== taskId);
 
     setTasks(novaTarefa);
   };
@@ -52,18 +54,27 @@ function App() {
   };
 
   return (
-    <>
+    <Router>
       <div className="container">
         <Header />
-        <AddTask adicionarTask={adicionarTask} />
-        <Tasks
-          tasks={tasks}
-          deletarTask={deletarTask}
-          adicionarTask={adicionarTask}
-          completarTask={completarTask}
+        <Route
+          path="/"
+          exact
+          render={() => (
+            <>
+              <AddTask adicionarTask={adicionarTask} />
+              <Tasks
+                tasks={tasks}
+                deletarTask={deletarTask}
+                adicionarTask={adicionarTask}
+                completarTask={completarTask}
+              />
+            </>
+          )}
         />
+        <Route path="/:taskTitle" exact component={TaskDetails} />
       </div>
-    </>
+    </Router>
   );
 }
 
