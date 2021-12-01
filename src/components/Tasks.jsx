@@ -6,6 +6,7 @@ const Tasks = ({ tasks, completarTask, deletarTask }) => {
     <>
       {tasks.map((task) => (
         <Task
+          key={task.id}
           task={task}
           completarTask={completarTask}
           deletarTask={deletarTask}
